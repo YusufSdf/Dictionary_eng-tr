@@ -5,12 +5,11 @@ import os
 db = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = ".",
+    password = "Yusuf2005.",
     database = "eng-tr"
 )
 
 cursor = db.cursor()
-
 
 cont = input("giriş - çıkış: ").lower()
 while cont == "giriş":
@@ -25,10 +24,19 @@ while cont == "giriş":
 
     elif menü == "2": # kelime ekleme
         os.system("cls")
+
         english = input("ingilizce kelime: ")
-        türkçe = input("türkçe karşılığı: ")
-        sql = cursor.execute("INSERT INTO dict VALUES(%s,%s,%s)",(None,english,türkçe))
-        db.commit()
+        cursor.execute("SELECT eng FROM dict")
+        control = cursor.fetchall()
+        for i in control:
+            if i[0] == english:
+                print("Bu kelime zaten var!")
+                break
+            else:
+                türkçe = input("türkçe karşılığı: ")
+                sql = cursor.execute("INSERT INTO dict VALUES(%s,%s,%s)",(None,english,türkçe))
+                db.commit()
+                break
 
 
     # elif menü == "3":
@@ -66,8 +74,6 @@ while cont == "giriş":
                 print("Doğru")
             else:
                 print("Yanlış")
-
                 whl = False
-
 
     cont = input("giriş - çıkış: ").lower()
