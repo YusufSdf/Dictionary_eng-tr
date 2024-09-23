@@ -11,12 +11,12 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 
-def results():
+def results(): # kelimeleri veri tabanından çeker
     cursor.execute("SELECT id,tr,eng FROM dict")
     res = cursor.fetchall()
     print(res)
 
-def correction():
+def correction(): # kelimeyi düzeltir. 
     english = input("ingilizce kelime: ")
     türkçe = input("türkçe karşılığı: ")
     id = input("id: ")
@@ -24,7 +24,7 @@ def correction():
     db.commit()
 
 
-def addWord():
+def addWord(): # kelime ekleme
     english = input("ingilizce kelime: ")
     cursor.execute("SELECT eng FROM dict")
     control = cursor.fetchall()
@@ -38,7 +38,7 @@ def addWord():
             db.commit()
             break
 
-def question():
+def question(): # soru sorma uygulaması
     whl = True
     while whl == True:
         os.system("cls")
@@ -73,13 +73,6 @@ while cont == "giriş":
     elif menü == "2": # kelime ekleme
         os.system("cls")
         addWord()
-
-
-    # elif menü == "5":
-    #     delete = input("silmek istenilen id= ")
-    #     sql = cursor.execute("DELETE FROM dict WHERE id=(%s)",([delete]))
-    #     db.commit()
-
 
     elif menü == "3": #kelime düzelt
         os.system("cls")
